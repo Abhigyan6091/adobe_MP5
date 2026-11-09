@@ -294,12 +294,4 @@ The structured JSON files in `data/raw/structured/` are **the manually transcrib
 
 ---
 
-## 16. AI-Tool Usage Disclosure
-
-This project was implemented with assistance from **Google Deepmind's Antigravity AI coding assistant** (Claude Sonnet 4.6 Thinking). The AI tool:
-- Wrote the Python pipeline code (`src/*.py`, `run_pipeline.py`, `tests/*.py`).
-- Wrote the documentation (`README.md`, `SOURCES.md`, `IDEAS.md`).
-- Structured the JSON raw data files based on the assignment specification.
-
-The **institutional data** (course codes, titles, syllabus outlines, academic rules) was manually verified against the IIT Bhilai official web sources referenced in each record's `source_url`. The AI did **not** fabricate source URLs, generate embeddings, or call any LLM API during pipeline execution.
 
