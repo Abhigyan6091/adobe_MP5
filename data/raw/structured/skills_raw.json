@@ -1,0 +1,179 @@
+[
+  {
+    "skill_id": "SKILL_001",
+    "name": "Python Programming",
+    "description": "Ability to write, debug, and optimise Python code including core syntax, standard library, data structures, functions, and OOP concepts.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_002",
+    "name": "Data Structures",
+    "description": "Understanding and implementation of core data structures including arrays, linked lists, stacks, queues, trees, and graphs.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_003",
+    "name": "Algorithm Design",
+    "description": "Ability to design and analyse algorithms including complexity analysis, divide-and-conquer, dynamic programming, and greedy approaches.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_004",
+    "name": "Linear Algebra",
+    "description": "Proficiency in vectors, matrices, linear transformations, eigenvalues, eigenvectors, and matrix decompositions (LU, SVD, QR).",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_005",
+    "name": "Probability and Statistics",
+    "description": "Understanding of probability theory, random variables, distributions, statistical inference, hypothesis testing, and regression.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_006",
+    "name": "Machine Learning",
+    "description": "Ability to design, train, evaluate and interpret machine learning models for supervised, unsupervised, and semi-supervised tasks.",
+    "proficiency_level": "intermediate",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_007",
+    "name": "Deep Learning",
+    "description": "Proficiency in deep neural network architectures including CNNs, RNNs, LSTMs, attention mechanisms, and transformers.",
+    "proficiency_level": "advanced",
+    "parent_skill_id": "SKILL_006",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_008",
+    "name": "Natural Language Processing",
+    "description": "Ability to design and apply NLP pipelines for text preprocessing, language modelling, sequence labelling, and downstream NLP tasks.",
+    "proficiency_level": "advanced",
+    "parent_skill_id": "SKILL_007",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_009",
+    "name": "Computer Vision",
+    "description": "Ability to implement image processing, feature extraction, object detection, and segmentation algorithms using classical and deep learning methods.",
+    "proficiency_level": "advanced",
+    "parent_skill_id": "SKILL_007",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_010",
+    "name": "Database and SQL",
+    "description": "Proficiency in relational database design, SQL querying, normalisation, indexing, and transaction management.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_011",
+    "name": "Data Mining",
+    "description": "Ability to apply data mining techniques including frequent pattern mining, association rules, classification, and clustering to large datasets.",
+    "proficiency_level": "intermediate",
+    "parent_skill_id": "SKILL_006",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_012",
+    "name": "Reinforcement Learning",
+    "description": "Understanding and implementation of RL algorithms including MDPs, dynamic programming, Q-learning, and policy gradient methods.",
+    "proficiency_level": "advanced",
+    "parent_skill_id": "SKILL_006",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_013",
+    "name": "Big Data Processing",
+    "description": "Ability to design and run scalable data pipelines using Hadoop, Spark, and distributed computing frameworks.",
+    "proficiency_level": "intermediate",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_014",
+    "name": "Optimisation",
+    "description": "Understanding of convex optimisation, linear programming, gradient-based methods, and constrained optimisation used in ML and operations research.",
+    "proficiency_level": "intermediate",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_015",
+    "name": "AI Ethics and Fairness",
+    "description": "Ability to identify, measure, and mitigate algorithmic bias and to reason about ethical implications of AI systems.",
+    "proficiency_level": "intermediate",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  },
+  {
+    "skill_id": "SKILL_016",
+    "name": "Calculus",
+    "description": "Proficiency in differential and integral calculus including multivariable calculus, partial derivatives, and applications in engineering and ML.",
+    "proficiency_level": "foundational",
+    "parent_skill_id": null,
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "verification_status": "curated"
+  }
+]
+

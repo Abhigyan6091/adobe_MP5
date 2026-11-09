@@ -1,0 +1,36 @@
+resource_id,skill_id,level,mapping_rationale
+RES_001,SKILL_001,working,NPTEL Python course directly teaches Python programming.
+RES_001,SKILL_002,working,Course covers data structures in Python.
+RES_001,SKILL_003,working,Course covers algorithm design and analysis.
+RES_002,SKILL_006,working,NPTEL ML course directly teaches ML algorithms.
+RES_003,SKILL_007,working,NPTEL Deep Learning course directly teaches deep learning.
+RES_004,SKILL_008,working,NPTEL NLP course directly teaches NLP.
+RES_005,SKILL_010,working,NPTEL DBMS course teaches SQL and database design.
+RES_006,SKILL_011,working,NPTEL Data Mining course directly teaches data mining.
+RES_007,SKILL_012,working,NPTEL RL course directly teaches reinforcement learning.
+RES_008,SKILL_001,intro,NPTEL Python intro course teaches foundational Python.
+RES_009,SKILL_004,working,MIT OCW 18.06 is a canonical linear algebra course.
+RES_010,SKILL_002,working,MIT OCW 6.006 covers data structures and algorithms.
+RES_010,SKILL_003,working,MIT OCW 6.006 covers algorithm design and analysis.
+RES_011,SKILL_005,working,MIT OCW 18.650 teaches statistics for applications.
+RES_012,SKILL_001,working,MIT OCW 6.0002 uses Python for data science.
+RES_013,SKILL_006,advanced,MIT OCW 6.867 is a graduate-level ML course.
+RES_014,SKILL_005,intro,OpenStax introductory statistics textbook.
+RES_015,SKILL_016,intro,OpenStax Calculus Vol 1 covers single-variable calculus.
+RES_016,SKILL_016,working,OpenStax Calculus Vol 2 extends calculus to series and multivariable.
+RES_017,SKILL_011,working,NPTEL Data Mining course covers DM concepts and techniques.
+RES_018,SKILL_013,intro,NPTEL Computer Networks provides networking foundations for distributed data.
+RES_019,SKILL_001,intro,OS knowledge supports system-level Python programming.
+RES_020,SKILL_014,advanced,Stanford EE364A is a canonical convex optimisation course.
+RES_021,SKILL_013,working,NPTEL Big Data course directly teaches Hadoop and Spark.
+RES_022,SKILL_015,working,MIT OCW ML fairness resource teaches AI ethics and fairness.
+RES_023,SKILL_009,working,NPTEL Computer Vision course directly teaches CV techniques.
+RES_024,SKILL_006,advanced,NPTEL statistical learning covers theoretical ML foundations.
+RES_025,SKILL_003,intro,NPTEL Discrete Maths provides graph theory foundations for algorithms.
+RES_026,SKILL_005,working,HarvardX R Basics teaches statistical computing and data analysis.
+RES_027,SKILL_006,working,Coursera Applied ML teaches practical ML with Python.
+RES_028,SKILL_016,intro,MIT OCW 18.01 is a canonical single-variable calculus course.
+RES_029,SKILL_004,working,NPTEL Linear Algebra (IIT Bombay) directly teaches linear algebra.
+RES_030,SKILL_005,working,NPTEL Probability and Statistics directly teaches probability.
+RES_031,SKILL_003,working,Stanford Algorithms course teaches algorithm design.
+RES_032,SKILL_006,intro,SWAYAM Data Science course introduces ML concepts.

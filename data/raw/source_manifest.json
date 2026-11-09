@@ -1,0 +1,135 @@
+{
+  "manifest_version": "1.0",
+  "created_on": "2026-11-09",
+  "programme": "B.Tech Data Science and Artificial Intelligence",
+  "institute": "IIT Bhilai",
+  "sources": [
+    {
+      "source_id": "SRC_001",
+      "name": "IIT Bhilai B.Tech Programme Schedule",
+      "url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+      "provider": "IIT Bhilai",
+      "category": "official",
+      "retrieved_on": "2026-11-09",
+      "licence": "All rights reserved (Indian Government institution)",
+      "content_extracted": "Course codes, titles, credits, semesters, syllabus outlines for B.Tech DSAI",
+      "verification_notes": "Manually transcribed from official IIT Bhilai programme page. Source is official institute website."
+    },
+    {
+      "source_id": "SRC_002",
+      "name": "IIT Bhilai UG Academic Manual",
+      "url": "https://iitbhilai.ac.in/index.php?pid=ug_manual",
+      "provider": "IIT Bhilai",
+      "category": "official",
+      "retrieved_on": "2026-11-09",
+      "licence": "All rights reserved (Indian Government institution)",
+      "content_extracted": "Credit limits, prerequisite rules, grading policy, NPTEL credit transfer policy",
+      "verification_notes": "Manually transcribed from official IIT Bhilai UG Academic Manual page."
+    },
+    {
+      "source_id": "SRC_003",
+      "name": "NPTEL Course Catalogue",
+      "url": "https://nptel.ac.in/",
+      "provider": "NPTEL (National Programme on Technology Enhanced Learning)",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "CC BY-SA 4.0 (for NPTEL course content)",
+      "content_extracted": "16 NPTEL courses used as open learning resources",
+      "verification_notes": "NPTEL courses are published under CC BY-SA 4.0. Individual course URLs verified."
+    },
+    {
+      "source_id": "SRC_004",
+      "name": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/",
+      "provider": "Massachusetts Institute of Technology",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "CC BY-NC-SA 4.0",
+      "content_extracted": "7 MIT OCW courses used as open learning resources",
+      "verification_notes": "MIT OCW is published under CC BY-NC-SA 4.0. Individual course URLs verified."
+    },
+    {
+      "source_id": "SRC_005",
+      "name": "OpenStax Textbooks",
+      "url": "https://openstax.org/",
+      "provider": "Rice University / OpenStax",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "CC BY 4.0 (Introductory Statistics), CC BY-NC-SA 4.0 (Calculus)",
+      "content_extracted": "3 OpenStax textbooks used as open learning resources",
+      "verification_notes": "OpenStax licence varies by textbook; individual books verified."
+    },
+    {
+      "source_id": "SRC_006",
+      "name": "SWAYAM Platform",
+      "url": "https://swayam.gov.in/",
+      "provider": "MHRD / Government of India",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "CC BY-SA 4.0",
+      "content_extracted": "1 SWAYAM course used as open learning resource",
+      "verification_notes": "SWAYAM courses are published under CC BY-SA 4.0."
+    },
+    {
+      "source_id": "SRC_007",
+      "name": "Stanford Online / Coursera (EE364A)",
+      "url": "https://web.stanford.edu/class/ee364a/",
+      "provider": "Stanford University",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "not_verified - course materials freely available but redistribution licence not confirmed",
+      "content_extracted": "Stanford EE364A convex optimisation as 1 learning resource",
+      "verification_notes": "Course website publicly accessible; redistribution licence not verified. Marked as not_verified in resources."
+    },
+    {
+      "source_id": "SRC_008",
+      "name": "Coursera / edX (Coursera, edX audit courses)",
+      "url": "https://www.coursera.org/",
+      "provider": "Various universities via Coursera / edX",
+      "category": "open_licence",
+      "retrieved_on": "2026-11-09",
+      "licence": "not_verified - audit access available but redistribution licence not confirmed",
+      "content_extracted": "3 courses (Coursera/edX) used as learning resources with not_verified licence",
+      "verification_notes": "Audit access available but content redistribution licence not independently verified. Marked accordingly."
+    }
+  ],
+  "structured_files": [
+    {
+      "filename": "courses_raw.json",
+      "description": "Manually transcribed course data for B.Tech DSAI at IIT Bhilai",
+      "source_ids": ["SRC_001"],
+      "transcription_method": "manual"
+    },
+    {
+      "filename": "academic_rules_raw.json",
+      "description": "Manually transcribed academic rules from IIT Bhilai UG Manual",
+      "source_ids": ["SRC_002"],
+      "transcription_method": "manual"
+    },
+    {
+      "filename": "resources_raw.json",
+      "description": "Curated open learning resources relevant to B.Tech DSAI",
+      "source_ids": ["SRC_003", "SRC_004", "SRC_005", "SRC_006", "SRC_007", "SRC_008"],
+      "transcription_method": "manual"
+    },
+    {
+      "filename": "skills_raw.json",
+      "description": "Skill taxonomy curated for B.Tech DSAI programme",
+      "source_ids": ["SRC_001"],
+      "transcription_method": "manual"
+    },
+    {
+      "filename": "course_skill_links_raw.json",
+      "description": "Manually curated course-to-skill mappings with evidence",
+      "source_ids": ["SRC_001"],
+      "transcription_method": "manual"
+    },
+    {
+      "filename": "resource_skill_links_raw.json",
+      "description": "Manually curated resource-to-skill mappings",
+      "source_ids": ["SRC_003", "SRC_004", "SRC_005", "SRC_006", "SRC_007", "SRC_008"],
+      "transcription_method": "manual"
+    }
+  ]
+}
+
