@@ -130,6 +130,16 @@ Coursera and edX courses are free to audit but redistribution rights were not in
 
 ---
 
+### Practice & Assessment Exercises (SRC_EXERCISE)
+
+| Source ID | Source Name | URL | Licence |
+|-----------|-------------|-----|---------|
+| SRC_EXERCISE | Open DSAI Conceptual Problem Sets (MIT OCW, NPTEL, OpenStax) | https://ocw.mit.edu/ | CC BY-NC-SA 4.0 / CC BY-SA 4.0 |
+
+16 conceptual exercises (`EX_001` through `EX_016`) mapped to the 16 taxonomy skills. Questions and solutions assess fundamental, intermediate, and advanced theoretical and practical concepts derived from corresponding MIT OCW and NPTEL course problem sets.
+
+---
+
 ## Notes on Licence Verification
 
 - **Verified**: Licence explicitly stated on the resource's own page or the provider's official licence page, and matches what is recorded.

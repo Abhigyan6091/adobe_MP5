@@ -97,6 +97,11 @@ MODULE_FIELDS = [
     "summary", "associated_skills", "source_url", "retrieved_on", "source_type",
 ]
 
+EXERCISE_FIELDS = [
+    "exercise_id", "skill_id", "difficulty", "question", "answer_key",
+    "source_url", "retrieved_on", "source_type", "verification_status",
+]
+
 
 # ---------------------------------------------------------------------------
 # Export functions
@@ -252,13 +257,30 @@ def run_export(normalise_result, chunks: list[dict[str, Any]]) -> None:
     ]
     _write_csv(PROCESSED_DIR / "modules.csv", module_rows, MODULE_FIELDS)
 
+    # --- exercises.csv (bonus) ---
+    exercise_rows = [
+        {
+            "exercise_id": ex.exercise_id,
+            "skill_id": ex.skill_id,
+            "difficulty": ex.difficulty,
+            "question": ex.question,
+            "answer_key": ex.answer_key,
+            "source_url": ex.source_url,
+            "retrieved_on": ex.retrieved_on,
+            "source_type": ex.source_type,
+            "verification_status": ex.verification_status,
+        }
+        for ex in getattr(normalise_result, "exercises", [])
+    ]
+    _write_csv(PROCESSED_DIR / "exercises.csv", exercise_rows, EXERCISE_FIELDS)
+
     # --- chunks.jsonl ---
     _write_jsonl(PROCESSED_DIR / "chunks.jsonl", chunks)
 
     logger.info(
         "Export complete: %d courses, %d prerequisites, %d skills, "
         "%d course-skill links, %d rules, %d resources, "
-        "%d resource-skill links, %d modules, %d chunks",
+        "%d resource-skill links, %d modules, %d exercises, %d chunks",
         len(normalise_result.courses),
         len(normalise_result.prerequisites),
         len(normalise_result.skills),
@@ -267,6 +289,7 @@ def run_export(normalise_result, chunks: list[dict[str, Any]]) -> None:
         len(normalise_result.resources),
         len(normalise_result.resource_skill_links),
         len(getattr(normalise_result, "modules", [])),
+        len(getattr(normalise_result, "exercises", [])),
         len(chunks),
     )
 

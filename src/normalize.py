@@ -218,6 +218,19 @@ class NormalisedModule:
 
 
 @dataclass
+class NormalisedExercise:
+    exercise_id: str
+    skill_id: str
+    difficulty: str
+    question: str
+    answer_key: str
+    source_url: str | None
+    retrieved_on: str | None
+    source_type: str
+    verification_status: str
+
+
+@dataclass
 class NormaliseResult:
     courses: list[NormalisedCourse] = field(default_factory=list)
     prerequisites: list[NormalisedPrerequisite] = field(default_factory=list)
@@ -227,6 +240,7 @@ class NormaliseResult:
     resources: list[NormalisedResource] = field(default_factory=list)
     resource_skill_links: list[NormalisedResourceSkillLink] = field(default_factory=list)
     modules: list[NormalisedModule] = field(default_factory=list)
+    exercises: list[NormalisedExercise] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -443,6 +457,28 @@ def _extract_modules(
     return modules
 
 
+def _normalise_exercises(raw_exercises: list[dict]) -> list[NormalisedExercise]:
+    """Normalise practice exercises."""
+    VALID_DIFFICULTIES = {"easy", "medium", "hard"}
+    exercises = []
+    for raw in raw_exercises:
+        diff = raw.get("difficulty", "medium").strip().lower()
+        if diff not in VALID_DIFFICULTIES:
+            diff = "medium"
+        exercises.append(NormalisedExercise(
+            exercise_id=raw.get("exercise_id", "").strip(),
+            skill_id=normalise_skill_id(raw.get("skill_id", "")),
+            difficulty=diff,
+            question=raw.get("question", "").strip(),
+            answer_key=raw.get("answer_key", "").strip(),
+            source_url=raw.get("source_url") or None,
+            retrieved_on=raw.get("retrieved_on") or None,
+            source_type=normalise_source_type(raw.get("source_type", "")),
+            verification_status=raw.get("verification_status", "unverified"),
+        ))
+    return exercises
+
+
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
@@ -458,6 +494,7 @@ def run_normalise(ingest_result) -> NormaliseResult:
     resources = _normalise_resources(ingest_result.resources_raw)
     resource_skill_links = _normalise_resource_skill_links(ingest_result.resource_skill_links_raw)
     modules = _extract_modules(courses, course_skill_links)
+    exercises = _normalise_exercises(getattr(ingest_result, "exercises_raw", []))
 
     result = NormaliseResult(
         courses=courses,
@@ -468,13 +505,15 @@ def run_normalise(ingest_result) -> NormaliseResult:
         resources=resources,
         resource_skill_links=resource_skill_links,
         modules=modules,
+        exercises=exercises,
     )
 
     logger.info(
         "Normalise complete: %d courses, %d prerequisites, %d skills, "
-        "%d course-skill links, %d rules, %d resources, %d resource-skill links, %d modules",
+        "%d course-skill links, %d rules, %d resources, %d resource-skill links, %d modules, %d exercises",
         len(courses), len(prerequisites), len(skills),
-        len(course_skill_links), len(rules), len(resources), len(resource_skill_links), len(modules),
+        len(course_skill_links), len(rules), len(resources), len(resource_skill_links),
+        len(modules), len(exercises),
     )
     return result
 

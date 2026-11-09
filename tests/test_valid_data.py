@@ -16,11 +16,12 @@ from src.ingest import IngestResult
 from tests.conftest import (
     VALID_COURSES_RAW, VALID_RULES_RAW, VALID_RESOURCES_RAW,
     VALID_SKILLS_RAW, VALID_COURSE_SKILL_LINKS_RAW, VALID_RESOURCE_SKILL_LINKS_RAW,
+    VALID_EXERCISES_RAW,
 )
 
 
 def _make_ingest(courses=None, rules=None, resources=None,
-                  skills=None, csl=None, rsl=None) -> IngestResult:
+                  skills=None, csl=None, rsl=None, exercises=None) -> IngestResult:
     result = IngestResult()
     result.courses_raw = courses if courses is not None else VALID_COURSES_RAW
     result.rules_raw = rules if rules is not None else VALID_RULES_RAW
@@ -28,6 +29,7 @@ def _make_ingest(courses=None, rules=None, resources=None,
     result.skills_raw = skills if skills is not None else VALID_SKILLS_RAW
     result.course_skill_links_raw = csl if csl is not None else VALID_COURSE_SKILL_LINKS_RAW
     result.resource_skill_links_raw = rsl if rsl is not None else VALID_RESOURCE_SKILL_LINKS_RAW
+    result.exercises_raw = exercises if exercises is not None else VALID_EXERCISES_RAW
     return result
 
 
@@ -121,5 +123,15 @@ class TestValidData:
         assert m.parent_id == "COURSE_TST101"
         assert m.sequence == 1
         assert m.title == "Topic A"
+
+    def test_exercises_normalised(self):
+        assert hasattr(self.norm, "exercises")
+        assert len(self.norm.exercises) == 1
+        ex = self.norm.exercises[0]
+        assert ex.exercise_id == "EX_TEST_001"
+        assert ex.skill_id == "SKILL_TEST_001"
+        assert ex.difficulty == "easy"
+        assert "Question" not in ex.answer_key
+
 
 

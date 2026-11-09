@@ -334,6 +334,31 @@ def _check_modules(result: ValidationResult, modules: list, valid_course_ids: se
                        f"Module has nonexistent parent_id '{m.parent_id}'.")
 
 
+def _check_exercises(result: ValidationResult, exercises: list, valid_skill_ids: set[str]) -> set[str]:
+    """Validate practice exercises (bonus entity). Returns set of valid exercise IDs."""
+    seen: dict[str, int] = {}
+    valid_ids: set[str] = set()
+    for ex in exercises:
+        seen[ex.exercise_id] = seen.get(ex.exercise_id, 0) + 1
+        if seen[ex.exercise_id] > 1:
+            result.add(Severity.ERROR, "CHK_013", "exercise", ex.exercise_id,
+                       f"Duplicate exercise_id '{ex.exercise_id}'.")
+        if not ex.question:
+            result.add(Severity.ERROR, "CHK_003", "exercise", ex.exercise_id,
+                       "Exercise is missing question text.")
+        if not ex.answer_key:
+            result.add(Severity.WARNING, "CHK_003", "exercise", ex.exercise_id,
+                       "Exercise is missing answer key.")
+        if ex.skill_id not in valid_skill_ids:
+            result.add(Severity.ERROR, "CHK_012", "exercise", ex.exercise_id,
+                       f"Exercise references nonexistent skill_id '{ex.skill_id}'.")
+        if not ex.source_url:
+            result.add(Severity.WARNING, "CHK_008", "exercise", ex.exercise_id,
+                       "Exercise is missing source_url.")
+        valid_ids.add(ex.exercise_id)
+    return valid_ids
+
+
 def _check_chunks(result: ValidationResult, chunks: list,
                   valid_parent_ids: set[str]) -> None:
     """Check 17: chunks without valid parent IDs."""
@@ -375,13 +400,15 @@ def run_validate(normalise_result, chunks: list | None = None) -> ValidationResu
 
     valid_course_ids = {f"COURSE_{c.code}" for c in normalise_result.courses}
     _check_modules(result, getattr(normalise_result, "modules", []), valid_course_ids)
+    valid_exercise_ids = _check_exercises(result, getattr(normalise_result, "exercises", []), valid_skill_ids)
 
     if chunks is not None:
-        # Build valid parent IDs from courses, rules, resources
+        # Build valid parent IDs from courses, rules, resources, exercises
         valid_parent_ids = (
             valid_course_ids
             | {r.rule_id for r in normalise_result.rules}
             | {res.resource_id for res in normalise_result.resources}
+            | valid_exercise_ids
         )
         _check_chunks(result, chunks, valid_parent_ids)
 

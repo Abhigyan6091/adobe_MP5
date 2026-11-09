@@ -33,6 +33,7 @@ class IngestResult:
     skills_raw: list[dict[str, Any]] = field(default_factory=list)
     course_skill_links_raw: list[dict[str, Any]] = field(default_factory=list)
     resource_skill_links_raw: list[dict[str, Any]] = field(default_factory=list)
+    exercises_raw: list[dict[str, Any]] = field(default_factory=list)
     manifest: dict[str, Any] = field(default_factory=dict)
     file_hashes: dict[str, str] = field(default_factory=dict)
     ingested_at: str = field(default_factory=lambda: datetime.now().isoformat())
@@ -91,6 +92,7 @@ def run_ingest() -> IngestResult:
         "skills_raw.json": "skills_raw",
         "course_skill_links_raw.json": "course_skill_links_raw",
         "resource_skill_links_raw.json": "resource_skill_links_raw",
+        "exercises_raw.json": "exercises_raw",
     }
 
     for filename, attr in file_map.items():
@@ -112,13 +114,14 @@ def run_ingest() -> IngestResult:
 
     logger.info(
         "Ingest complete: %d courses, %d rules, %d resources, "
-        "%d skills, %d course-skill links, %d resource-skill links",
+        "%d skills, %d course-skill links, %d resource-skill links, %d exercises",
         len(result.courses_raw),
         len(result.rules_raw),
         len(result.resources_raw),
         len(result.skills_raw),
         len(result.course_skill_links_raw),
         len(result.resource_skill_links_raw),
+        len(result.exercises_raw),
     )
     return result
 

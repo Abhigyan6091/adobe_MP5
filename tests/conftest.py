@@ -125,3 +125,17 @@ VALID_RESOURCE_SKILL_LINKS_RAW = [
     },
 ]
 
+VALID_EXERCISES_RAW = [
+    {
+        "exercise_id": "EX_TEST_001",
+        "skill_id": "SKILL_TEST_001",
+        "difficulty": "easy",
+        "question": "What is the result of test operation on TST101?",
+        "answer_key": "The test operation produces a synthetic result.",
+        "source_url": "https://example.test/exercise",
+        "retrieved_on": "2026-01-01",
+        "source_type": "open_licence",
+        "verification_status": "verified",
+    },
+]
+

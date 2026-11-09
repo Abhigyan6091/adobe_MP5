@@ -1,0 +1,178 @@
+[
+  {
+    "exercise_id": "EX_001",
+    "skill_id": "SKILL_001",
+    "difficulty": "easy",
+    "question": "Write a Python function `reverse_words(s: str) -> str` that takes a sentence and returns the sentence with the order of words reversed, maintaining single spacing between words.",
+    "answer_key": "def reverse_words(s: str) -> str:\n    return ' '.join(s.strip().split()[::-1])\nExplanation: split() without arguments splits by arbitrary whitespace and removes empty tokens; [::-1] reverses the list of tokens; join() concatenates them with single spaces.",
+    "source_url": "https://nptel.ac.in/courses/106106145",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_002",
+    "skill_id": "SKILL_002",
+    "difficulty": "medium",
+    "question": "Explain how to implement a FIFO queue using two stacks S1 and S2. What is the amortised time complexity of the enqueue and dequeue operations?",
+    "answer_key": "Enqueue: Push element onto S1 (O(1)). Dequeue: If S2 is not empty, pop from S2. If S2 is empty, pop all elements from S1 and push them to S2, then pop from S2. If both are empty, raise underflow. Amortised complexity: Each element is pushed and popped at most twice across its lifetime, giving O(1) amortised time per operation.",
+    "source_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_003",
+    "skill_id": "SKILL_003",
+    "difficulty": "medium",
+    "question": "Given an array of integers, find the maximum contiguous subarray sum in O(n) time (Kadane's algorithm). Provide the recurrence relation and pseudocode.",
+    "answer_key": "Kadane's Algorithm maintains max_so_far and current_max. For each element x in array:\ncurrent_max = max(x, current_max + x)\nmax_so_far = max(max_so_far, current_max)\nRecurrence: dp[i] = max(A[i], dp[i-1] + A[i]). Time complexity: O(n) single pass, space complexity: O(1).",
+    "source_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_004",
+    "skill_id": "SKILL_004",
+    "difficulty": "easy",
+    "question": "Given a 2x2 matrix A = [[2, 1], [1, 2]], compute its eigenvalues and corresponding eigenvectors.",
+    "answer_key": "Characteristic equation: det(A - lambda*I) = (2 - lambda)^2 - 1 = lambda^2 - 4*lambda + 3 = (lambda - 3)(lambda - 1) = 0. Eigenvalues: lambda_1 = 3, lambda_2 = 1. For lambda = 3: (A - 3I)v = 0 gives -v1 + v2 = 0 -> v_1 = [1, 1]^T. For lambda = 1: (A - I)v = 0 gives v1 + v2 = 0 -> v_2 = [1, -1]^T.",
+    "source_url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_005",
+    "skill_id": "SKILL_005",
+    "difficulty": "medium",
+    "question": "A disease has a prevalence of 1% in a population. A diagnostic test has a sensitivity of 95% and a specificity of 90%. If a randomly chosen person tests positive, what is the probability that they actually have the disease (using Bayes' Theorem)?",
+    "answer_key": "P(D) = 0.01, P(T+|D) = 0.95, P(T+|not D) = 1 - 0.90 = 0.10. P(T+) = P(T+|D)P(D) + P(T+|not D)P(not D) = (0.95)(0.01) + (0.10)(0.99) = 0.0095 + 0.0990 = 0.1085. P(D|T+) = (0.95 * 0.01) / 0.1085 = 0.0095 / 0.1085 ≈ 0.0876 (8.76%).",
+    "source_url": "https://openstax.org/details/books/introductory-statistics",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_006",
+    "skill_id": "SKILL_006",
+    "difficulty": "medium",
+    "question": "Explain the difference between L1 (Lasso) and L2 (Ridge) regularisation in linear regression. Why does L1 regularisation yield sparse weight vectors while L2 does not?",
+    "answer_key": "Ridge adds sum(w_i^2) penalty; Lasso adds sum(|w_i|) penalty. The L1 penalty has sharp corners (non-differentiable points) aligned with the parameter axes in the constraint region (diamond shape in 2D). The elliptical contours of the MSE loss function often intersect the L1 constraint region at these corners where one or more parameters equal zero, leading to sparsity and feature selection. In contrast, the L2 constraint ball is smooth and spherical, rarely intersecting contours exactly on axes.",
+    "source_url": "https://nptel.ac.in/courses/106105152",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_007",
+    "skill_id": "SKILL_007",
+    "difficulty": "hard",
+    "question": "Derive the backpropagation gradient of the cross-entropy loss L = -sum(y_k * log(p_k)) with respect to the pre-activation logits z_i, where p_i = exp(z_i) / sum(exp(z_j)) is the softmax output.",
+    "answer_key": "dL/dz_i = sum_k (dL/dp_k * dp_k/dz_i). Here dL/dp_k = -y_k / p_k. For softmax: dp_k/dz_i = p_i(1 - p_i) if k == i, and -p_k*p_i if k != i. Substituting: dL/dz_i = (-y_i/p_i)*p_i(1 - p_i) - sum_{k != i} (-y_k/p_k)*(-p_k*p_i) = -y_i(1 - p_i) + p_i * sum_{k != i} y_k = -y_i + y_i*p_i + p_i*(1 - y_i) = p_i - y_i. Thus: dL/dz_i = p_i - y_i (softmax with cross-entropy gradient is prediction minus ground truth).",
+    "source_url": "https://nptel.ac.in/courses/106106184",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_008",
+    "skill_id": "SKILL_008",
+    "difficulty": "medium",
+    "question": "Explain the formula for scaled dot-product attention in the Transformer: Attention(Q, K, V) = softmax(Q * K^T / sqrt(d_k)) * V. Why is the dot product scaled by 1/sqrt(d_k)?",
+    "answer_key": "Q, K, V are Query, Key, and Value matrices. Q * K^T computes dot-product pairwise similarity between tokens. Scaling by 1/sqrt(d_k) prevents the magnitude of the dot products from growing excessively large for large dimensions d_k. Large values would push the softmax function into regions with extremely small gradients (vanishing gradients), making training difficult.",
+    "source_url": "https://nptel.ac.in/courses/106101007",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_009",
+    "skill_id": "SKILL_009",
+    "difficulty": "medium",
+    "question": "How does a Convolutional Layer achieve parameter sharing and translation equivariance compared to a Fully Connected Layer for 2D image processing?",
+    "answer_key": "A convolutional layer applies the same learned kernel/filter across all spatial positions (receptive fields) of the image, so weights are tied/shared across spatial coordinates. This drastically reduces parameter count. Translation equivariance means shifting the input image f(x) by delta shifts the resulting feature map by the same delta: Conv(Shift(x)) = Shift(Conv(x)). Features learned in one part of an image are detectable anywhere.",
+    "source_url": "https://nptel.ac.in/courses/106106222",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_010",
+    "skill_id": "SKILL_010",
+    "difficulty": "easy",
+    "question": "Given tables `Students(student_id, name, department)` and `Grades(student_id, course_code, grade_point)`, write an SQL query to find the average grade point of students in the 'DSAI' department who have completed at least 3 courses.",
+    "answer_key": "SELECT s.student_id, s.name, AVG(g.grade_point) AS gpa FROM Students s JOIN Grades g ON s.student_id = g.student_id WHERE s.department = 'DSAI' GROUP BY s.student_id, s.name HAVING COUNT(g.course_code) >= 3;",
+    "source_url": "https://nptel.ac.in/courses/106105175",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_011",
+    "skill_id": "SKILL_011",
+    "difficulty": "medium",
+    "question": "In association rule mining, define Support and Confidence for a rule X -> Y. If itemset {Bread, Milk} appears in 20 out of 100 transactions, and {Bread} appears in 50 transactions, compute Support and Confidence of {Bread} -> {Milk}.",
+    "answer_key": "Support(X -> Y) = P(X union Y) = count(X union Y) / total_transactions. Confidence(X -> Y) = P(Y|X) = Support(X union Y) / Support(X). Support({Bread} -> {Milk}) = 20 / 100 = 0.20 (20%). Confidence({Bread} -> {Milk}) = 20 / 50 = 0.40 (40%).",
+    "source_url": "https://nptel.ac.in/courses/106104174",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_012",
+    "skill_id": "SKILL_012",
+    "difficulty": "hard",
+    "question": "State the Bellman Optimality Equation for the state-value function V*(s) in a Markov Decision Process (MDP).",
+    "answer_key": "V*(s) = max_a sum_{s', r} P(s', r | s, a) * [r + gamma * V*(s')], where s is current state, a is action, s' is next state, r is immediate reward, gamma in [0, 1) is the discount factor, and P(s', r | s, a) is the environment transition dynamics.",
+    "source_url": "https://nptel.ac.in/courses/106105225",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_013",
+    "skill_id": "SKILL_013",
+    "difficulty": "medium",
+    "question": "Explain the role of Resilient Distributed Datasets (RDDs) in Apache Spark. What is the difference between Spark transformations and actions?",
+    "answer_key": "An RDD is an immutable, distributed collection of objects partitioned across nodes in a cluster that can be operated on in parallel with fault tolerance via lineage graphs. Transformations (e.g. map, filter, groupByKey) are lazy operations that produce a new RDD without immediate computation. Actions (e.g. count, collect, saveAsTextFile) trigger execution of the computation graph and return a value to the driver program or write data to storage.",
+    "source_url": "https://nptel.ac.in/courses/106104182",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_014",
+    "skill_id": "SKILL_014",
+    "difficulty": "medium",
+    "question": "State the Karush-Kuhn-Tucker (KKT) necessary conditions for a point x* to be an optimum of a constrained optimisation problem: minimise f(x) subject to g_i(x) <= 0 and h_j(x) = 0.",
+    "answer_key": "1. Stationarity: grad f(x*) + sum_i lambda_i * grad g_i(x*) + sum_j nu_j * grad h_j(x*) = 0. 2. Primal feasibility: g_i(x*) <= 0 for all i, h_j(x*) = 0 for all j. 3. Dual feasibility: lambda_i >= 0 for all i. 4. Complementary slackness: lambda_i * g_i(x*) = 0 for all i.",
+    "source_url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_015",
+    "skill_id": "SKILL_015",
+    "difficulty": "medium",
+    "question": "Define Demographic Parity (Statistical Parity) and Equalised Odds in algorithmic classification fairness. Can both criteria generally be satisfied simultaneously when base rates differ?",
+    "answer_key": "Demographic Parity requires P(Y_hat = 1 | A = 0) = P(Y_hat = 1 | A = 1), meaning selection rate is independent of protected attribute A. Equalised Odds requires P(Y_hat = 1 | A = 0, Y = y) = P(Y_hat = 1 | A = 1, Y = y) for y in {0, 1}, meaning true positive and false positive rates are equal across groups. In general, by the impossibility theorem of fairness, when base rates P(Y = 1 | A = 0) != P(Y = 1 | A = 1) and the predictor is not perfect, Demographic Parity and Equalised Odds cannot be satisfied simultaneously.",
+    "source_url": "https://ocw.mit.edu/courses/res-ec-001-exploring-fairness-in-machine-learning-for-international-development-spring-2020/",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  },
+  {
+    "exercise_id": "EX_016",
+    "skill_id": "SKILL_016",
+    "difficulty": "easy",
+    "question": "Compute the partial derivatives fx and fy and the gradient vector grad f(x, y) for f(x, y) = 3*x^2*y + sin(x*y).",
+    "answer_key": "fx = d/dx [3*x^2*y + sin(x*y)] = 6*x*y + y*cos(x*y). fy = d/dy [3*x^2*y + sin(x*y)] = 3*x^2 + x*cos(x*y). Gradient: grad f(x, y) = [6*x*y + y*cos(x*y), 3*x^2 + x*cos(x*y)]^T.",
+    "source_url": "https://openstax.org/details/books/calculus-volume-2",
+    "retrieved_on": "2026-11-09",
+    "source_type": "open_licence",
+    "verification_status": "verified"
+  }
+]

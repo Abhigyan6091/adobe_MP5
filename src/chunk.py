@@ -213,6 +213,43 @@ def _chunk_resource(
     return chunks
 
 
+def _chunk_exercise(
+    exercise,
+    max_words: int,
+    overlap: int,
+    skill_name: str = "",
+) -> list[dict[str, Any]]:
+    """Practice exercise produces a chunk for future practice & mastery checking."""
+    parent_id = exercise.exercise_id
+    text = f"Question: {exercise.question}\n\nAnswer / Solution:\n{exercise.answer_key}"
+
+    base_filter = {
+        "programme": "B.Tech DSAI",
+        "skill_id": exercise.skill_id,
+        "difficulty": exercise.difficulty,
+        "skills": [skill_name] if skill_name else [],
+        "verification_status": exercise.verification_status,
+    }
+
+    chunks: list[dict[str, Any]] = []
+    sub_chunks = _split_into_chunks(text, max_words, overlap)
+    for seq, sc in enumerate(sub_chunks, start=1):
+        if not sc.strip():
+            continue
+        chunks.append({
+            "chunk_id": _make_chunk_id(parent_id, seq),
+            "parent_id": parent_id,
+            "parent_type": "exercise",
+            "text": sc,
+            "section_title": f"Exercise: {exercise.skill_id} ({exercise.difficulty})",
+            "source_url": exercise.source_url,
+            "retrieved_on": exercise.retrieved_on,
+            "source_type": exercise.source_type,
+            "filter_metadata": base_filter,
+        })
+    return chunks
+
+
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
@@ -269,13 +306,19 @@ def run_chunk(
             _chunk_resource(resource, max_words, overlap, skills=resource_skills.get(resource.resource_id, []))
         )
 
+    for exercise in getattr(normalise_result, "exercises", []):
+        all_chunks.extend(
+            _chunk_exercise(exercise, max_words, overlap, skill_name=skill_names.get(exercise.skill_id, ""))
+        )
+
     logger.info(
         "Chunk complete: %d total chunks "
-        "(from %d courses, %d rules, %d resources)",
+        "(from %d courses, %d rules, %d resources, %d exercises)",
         len(all_chunks),
         len(normalise_result.courses),
         len(normalise_result.rules),
         len(normalise_result.resources),
+        len(getattr(normalise_result, "exercises", [])),
     )
     return all_chunks
 

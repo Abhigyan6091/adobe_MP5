@@ -45,7 +45,8 @@ adobe_mp5/
 │   │   │   ├── resources_raw.json
 │   │   │   ├── skills_raw.json
 │   │   │   ├── course_skill_links_raw.json
-│   │   │   └── resource_skill_links_raw.json
+│   │   │   ├── resource_skill_links_raw.json
+│   │   │   └── exercises_raw.json      # Bonus entity
 │   │   └── source_manifest.json
 │   │
 │   └── processed/
@@ -57,6 +58,7 @@ adobe_mp5/
 │       ├── resources.csv
 │       ├── resource_skill_links.csv
 │       ├── modules.csv          # 112 structured unit modules
+│       ├── exercises.csv        # Bonus: 16 skill-aligned conceptual exercises
 │       └── chunks.jsonl
 │
 ├── src/
@@ -101,17 +103,19 @@ adobe_mp5/
 | Resource | resource_id, title, provider, licence, format, duration, duration_type, url, description, source_url, retrieved_on, source_type, licence_verification_status | `resources.csv` |
 | Resource-Skill Link | resource_id, skill_id, level, mapping_rationale | `resource_skill_links.csv` |
 | Module | module_id, parent_id, parent_type, sequence, title, summary, associated_skills, source_url, retrieved_on, source_type | `modules.csv` |
+| Exercise (Bonus) | exercise_id, skill_id, difficulty, question, answer_key, source_url, retrieved_on, source_type | `exercises.csv` |
 | Chunk | chunk_id, parent_id, parent_type, text, section_title, source_url, retrieved_on, source_type, filter_metadata | `chunks.jsonl` |
 
 ### Design Decisions
 
-- **Stable IDs**: All IDs (COURSE_DS301, SKILL_006, RES_002, RULE_CR_001) are deterministic and not row-number dependent.
-- **Foreign-key-like references**: Prerequisites reference course codes; course-skill links reference course codes and skill IDs; chunk parent_ids reference entity IDs.
+- **Stable IDs**: All IDs (COURSE_DS301, SKILL_006, RES_002, RULE_CR_001, EX_001) are deterministic and not row-number dependent.
+- **Foreign-key-like references**: Prerequisites reference course codes; course-skill links reference course codes and skill IDs; chunk parent_ids reference entity IDs; exercises reference skill IDs.
 - **No duplication**: Course metadata lives only in `courses.csv`; links tables reference by ID.
 - **Source provenance on every entity**: Every row has `source_url`, `retrieved_on`, `source_type`.
 - **Separation of verified vs curated**: `verification_status` distinguishes `verified` (official source), `partially_verified`, `unresolved`, and `curated` (manual mapping).
 - **Missing values preserved**: Unknown fields are `null` / `not_stated`, never fabricated.
 - **modules.csv**: Fully populated with 112 structured course modules, extracting each syllabus unit, title, summary, and associated course skills.
+- **exercises.csv (Bonus)**: 16 skill-aligned conceptual verification exercises (beginner, intermediate, advanced) mapped directly to our skill taxonomy with questions, expected answer keys, and dedicated chunks for retrieval.
 
 ---
 

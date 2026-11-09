@@ -18,7 +18,8 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 | Resource-skill mappings | 35 |
 | Prerequisites | 22 |
 | Modules | 112 |
-| Chunks generated | 176 |
+| Exercises (bonus) | 16 |
+| Chunks generated | 192 |
 
 > **Note on unknown / not_stated values:** Fields with the value `None`, `not_stated`, or empty string are counted as **not filled** in completeness calculations below. This correctly reflects genuinely missing data rather than concealing it.
 
@@ -138,6 +139,20 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 | source_url | 112 | 112 | 100% |
 | retrieved_on | 112 | 112 | 100% |
 | source_type | 112 | 112 | 100% |
+
+**Exercise (bonus)** (16 records)
+
+| Field | Filled | Total | Completeness |
+|-------|--------|-------|-------------|
+| exercise_id | 16 | 16 | 100% |
+| skill_id | 16 | 16 | 100% |
+| difficulty | 16 | 16 | 100% |
+| question | 16 | 16 | 100% |
+| answer_key | 16 | 16 | 100% |
+| source_url | 16 | 16 | 100% |
+| retrieved_on | 16 | 16 | 100% |
+| source_type | 16 | 16 | 100% |
+| verification_status | 16 | 16 | 100% |
 
 ---
 

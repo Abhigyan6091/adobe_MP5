@@ -129,6 +129,12 @@
       "description": "Manually curated resource-to-skill mappings",
       "source_ids": ["SRC_003", "SRC_004", "SRC_005", "SRC_006", "SRC_007", "SRC_008"],
       "transcription_method": "manual"
+    },
+    {
+      "filename": "exercises_raw.json",
+      "description": "Curated conceptual and problem-solving exercises mapped to DSAI skills (bonus entity)",
+      "source_ids": ["SRC_003", "SRC_004", "SRC_005"],
+      "transcription_method": "manual"
     }
   ]
 }

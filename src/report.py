@@ -90,6 +90,7 @@ def run_report(validation_result, chunks: list) -> None:
     resources = _read_csv("resources.csv")
     rsl = _read_csv("resource_skill_links.csv")
     modules = _read_csv("modules.csv")
+    exercises = _read_csv("exercises.csv")
     jsonl_chunks = _read_jsonl("chunks.jsonl")
 
     n_errors = len(validation_result.errors)
@@ -116,6 +117,7 @@ def run_report(validation_result, chunks: list) -> None:
         f"| Resource-skill mappings | {len(rsl)} |",
         f"| Prerequisites | {len(prerequisites)} |",
         f"| Modules | {len(modules)} |",
+        f"| Exercises (bonus) | {len(exercises)} |",
         f"| Chunks generated | {len(jsonl_chunks)} |",
         "",
         "> **Note on unknown / not_stated values:** Fields with the value `None`, `not_stated`, "
@@ -167,6 +169,11 @@ def run_report(validation_result, chunks: list) -> None:
         _completeness_table("Module", modules, [
             "module_id", "parent_id", "parent_type", "sequence", "title",
             "summary", "associated_skills", "source_url", "retrieved_on", "source_type",
+        ]),
+        "",
+        _completeness_table("Exercise (bonus)", exercises, [
+            "exercise_id", "skill_id", "difficulty", "question", "answer_key",
+            "source_url", "retrieved_on", "source_type", "verification_status",
         ]),
         "",
         "---",
