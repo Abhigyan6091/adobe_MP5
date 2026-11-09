@@ -154,5 +154,18 @@
     "source_type": "official",
     "page_or_section": "Section on Grading System",
     "verification_status": "verified"
+  },
+  {
+    "rule_id": "RULE_TERM_001",
+    "category": "academic_standing_and_termination",
+    "text": "A student will normally not be allowed to register and program will be auto terminated if (i) his/her CGPA falls below 4.0 (ii) his/her CGPA falls below 4.5 for three consecutive semesters.",
+    "numeric_limit": 4.0,
+    "applies_to": "B.Tech all programmes",
+    "conditions": "Registration restriction and automatic programme termination if CGPA falls below 4.0 or below 4.5 for three consecutive semesters.",
+    "source_url": "https://iitbhilai.ac.in/index.php?pid=ug_manual",
+    "retrieved_on": "2026-11-09",
+    "source_type": "official",
+    "page_or_section": "Section on Academic Standing, Registration Restriction and Termination",
+    "verification_status": "verified"
   }
 ]

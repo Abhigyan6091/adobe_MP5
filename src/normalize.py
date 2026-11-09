@@ -204,6 +204,20 @@ class NormalisedResourceSkillLink:
 
 
 @dataclass
+class NormalisedModule:
+    module_id: str
+    parent_id: str
+    parent_type: str
+    sequence: int
+    title: str
+    summary: str
+    associated_skills: str
+    source_url: str | None
+    retrieved_on: str | None
+    source_type: str
+
+
+@dataclass
 class NormaliseResult:
     courses: list[NormalisedCourse] = field(default_factory=list)
     prerequisites: list[NormalisedPrerequisite] = field(default_factory=list)
@@ -212,6 +226,7 @@ class NormaliseResult:
     rules: list[NormalisedRule] = field(default_factory=list)
     resources: list[NormalisedResource] = field(default_factory=list)
     resource_skill_links: list[NormalisedResourceSkillLink] = field(default_factory=list)
+    modules: list[NormalisedModule] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -384,6 +399,50 @@ def _normalise_resource_skill_links(raw_links: list[dict]) -> list[NormalisedRes
     return links
 
 
+def _extract_modules(
+    courses: list[NormalisedCourse],
+    course_skill_links: list[NormalisedCourseSkillLink],
+) -> list[NormalisedModule]:
+    """
+    Extract structured course syllabus units into fine-grained module records.
+    Every course's unit outline (e.g. Unit 1: Introduction...) is converted into a module.
+    """
+    course_skills: dict[str, list[str]] = {}
+    for link in course_skill_links:
+        course_skills.setdefault(link.course_code, []).append(link.skill_id)
+
+    modules: list[NormalisedModule] = []
+    for c in courses:
+        syl = c.syllabus or ""
+        units = re.split(r"Unit\s+(\d+)[:\.]\s*", syl)
+        for i in range(1, len(units), 2):
+            seq = int(units[i])
+            content = units[i + 1].strip()
+            if " - " in content:
+                title, summary = content.split(" - ", 1)
+            elif ":" in content:
+                title, summary = content.split(":", 1)
+            else:
+                parts = content.split(". ", 1)
+                title = parts[0]
+                summary = parts[1] if len(parts) > 1 else content
+
+            skills_str = "|".join(course_skills.get(c.code, []))
+            modules.append(NormalisedModule(
+                module_id=f"MOD_{c.code}_{seq:02d}",
+                parent_id=c.course_id,
+                parent_type="course",
+                sequence=seq,
+                title=title.strip().rstrip("."),
+                summary=summary.strip().rstrip("."),
+                associated_skills=skills_str,
+                source_url=c.source_url,
+                retrieved_on=c.retrieved_on,
+                source_type=c.source_type,
+            ))
+    return modules
+
+
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
@@ -398,6 +457,7 @@ def run_normalise(ingest_result) -> NormaliseResult:
     rules = _normalise_rules(ingest_result.rules_raw)
     resources = _normalise_resources(ingest_result.resources_raw)
     resource_skill_links = _normalise_resource_skill_links(ingest_result.resource_skill_links_raw)
+    modules = _extract_modules(courses, course_skill_links)
 
     result = NormaliseResult(
         courses=courses,
@@ -407,13 +467,14 @@ def run_normalise(ingest_result) -> NormaliseResult:
         rules=rules,
         resources=resources,
         resource_skill_links=resource_skill_links,
+        modules=modules,
     )
 
     logger.info(
         "Normalise complete: %d courses, %d prerequisites, %d skills, "
-        "%d course-skill links, %d rules, %d resources, %d resource-skill links",
+        "%d course-skill links, %d rules, %d resources, %d resource-skill links, %d modules",
         len(courses), len(prerequisites), len(skills),
-        len(course_skill_links), len(rules), len(resources), len(resource_skill_links),
+        len(course_skill_links), len(rules), len(resources), len(resource_skill_links), len(modules),
     )
     return result
 

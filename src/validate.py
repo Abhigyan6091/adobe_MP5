@@ -318,6 +318,22 @@ def _check_resources(result: ValidationResult, resources: list,
     return valid_ids
 
 
+def _check_modules(result: ValidationResult, modules: list, valid_course_ids: set[str]) -> None:
+    """Validate extracted course modules."""
+    seen: dict[str, int] = {}
+    for m in modules:
+        seen[m.module_id] = seen.get(m.module_id, 0) + 1
+        if seen[m.module_id] > 1:
+            result.add(Severity.ERROR, "CHK_013", "module", m.module_id,
+                       f"Duplicate module_id '{m.module_id}'.")
+        if not m.title:
+            result.add(Severity.ERROR, "CHK_003", "module", m.module_id,
+                       "Module is missing a title.")
+        if m.parent_id not in valid_course_ids:
+            result.add(Severity.ERROR, "CHK_017", "module", m.module_id,
+                       f"Module has nonexistent parent_id '{m.parent_id}'.")
+
+
 def _check_chunks(result: ValidationResult, chunks: list,
                   valid_parent_ids: set[str]) -> None:
     """Check 17: chunks without valid parent IDs."""
@@ -357,10 +373,13 @@ def run_validate(normalise_result, chunks: list | None = None) -> ValidationResu
     valid_resource_ids = _check_resources(result, normalise_result.resources,
                                            valid_skill_ids, normalise_result.resource_skill_links)
 
+    valid_course_ids = {f"COURSE_{c.code}" for c in normalise_result.courses}
+    _check_modules(result, getattr(normalise_result, "modules", []), valid_course_ids)
+
     if chunks is not None:
         # Build valid parent IDs from courses, rules, resources
         valid_parent_ids = (
-            {f"COURSE_{c.code}" for c in normalise_result.courses}
+            valid_course_ids
             | {r.rule_id for r in normalise_result.rules}
             | {res.resource_id for res in normalise_result.resources}
         )

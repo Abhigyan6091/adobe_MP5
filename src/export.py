@@ -234,12 +234,23 @@ def run_export(normalise_result, chunks: list[dict[str, Any]]) -> None:
     ]
     _write_csv(PROCESSED_DIR / "resource_skill_links.csv", rsl_rows, RESOURCE_SKILL_FIELDS)
 
-    # --- modules.csv (empty scaffold) ---
-    _write_csv(PROCESSED_DIR / "modules.csv", [], MODULE_FIELDS)
-    logger.info(
-        "modules.csv written as empty scaffold "
-        "(module-level data not yet collected; see README for explanation)"
-    )
+    # --- modules.csv ---
+    module_rows = [
+        {
+            "module_id": m.module_id,
+            "parent_id": m.parent_id,
+            "parent_type": m.parent_type,
+            "sequence": m.sequence,
+            "title": m.title,
+            "summary": m.summary,
+            "associated_skills": m.associated_skills,
+            "source_url": m.source_url,
+            "retrieved_on": m.retrieved_on,
+            "source_type": m.source_type,
+        }
+        for m in getattr(normalise_result, "modules", [])
+    ]
+    _write_csv(PROCESSED_DIR / "modules.csv", module_rows, MODULE_FIELDS)
 
     # --- chunks.jsonl ---
     _write_jsonl(PROCESSED_DIR / "chunks.jsonl", chunks)
@@ -247,7 +258,7 @@ def run_export(normalise_result, chunks: list[dict[str, Any]]) -> None:
     logger.info(
         "Export complete: %d courses, %d prerequisites, %d skills, "
         "%d course-skill links, %d rules, %d resources, "
-        "%d resource-skill links, %d chunks",
+        "%d resource-skill links, %d modules, %d chunks",
         len(normalise_result.courses),
         len(normalise_result.prerequisites),
         len(normalise_result.skills),
@@ -255,6 +266,7 @@ def run_export(normalise_result, chunks: list[dict[str, Any]]) -> None:
         len(normalise_result.rules),
         len(normalise_result.resources),
         len(normalise_result.resource_skill_links),
+        len(getattr(normalise_result, "modules", [])),
         len(chunks),
     )
 

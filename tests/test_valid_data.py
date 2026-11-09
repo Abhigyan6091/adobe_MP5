@@ -113,3 +113,13 @@ class TestValidData:
     def test_resource_skill_link_created(self):
         assert len(self.norm.resource_skill_links) == 1
 
+    def test_modules_extracted(self):
+        assert hasattr(self.norm, "modules")
+        assert len(self.norm.modules) == 4  # TST101 has 2 units, TST201 has 2 units
+        m = self.norm.modules[0]
+        assert m.module_id == "MOD_TST101_01"
+        assert m.parent_id == "COURSE_TST101"
+        assert m.sequence == 1
+        assert m.title == "Topic A"
+
+

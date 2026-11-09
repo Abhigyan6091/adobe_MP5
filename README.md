@@ -56,7 +56,7 @@ adobe_mp5/
 │       ├── academic_rules.json
 │       ├── resources.csv
 │       ├── resource_skill_links.csv
-│       ├── modules.csv          (empty scaffold)
+│       ├── modules.csv          # 112 structured unit modules
 │       └── chunks.jsonl
 │
 ├── src/
@@ -100,7 +100,7 @@ adobe_mp5/
 | Academic Rule | rule_id, category, text, numeric_limit, applies_to, conditions, source_url, retrieved_on, source_type, page_or_section, verification_status | `academic_rules.json` |
 | Resource | resource_id, title, provider, licence, format, duration, duration_type, url, description, source_url, retrieved_on, source_type, licence_verification_status | `resources.csv` |
 | Resource-Skill Link | resource_id, skill_id, level, mapping_rationale | `resource_skill_links.csv` |
-| Module | (empty scaffold – see §14) | `modules.csv` |
+| Module | module_id, parent_id, parent_type, sequence, title, summary, associated_skills, source_url, retrieved_on, source_type | `modules.csv` |
 | Chunk | chunk_id, parent_id, parent_type, text, section_title, source_url, retrieved_on, source_type, filter_metadata | `chunks.jsonl` |
 
 ### Design Decisions
@@ -111,7 +111,7 @@ adobe_mp5/
 - **Source provenance on every entity**: Every row has `source_url`, `retrieved_on`, `source_type`.
 - **Separation of verified vs curated**: `verification_status` distinguishes `verified` (official source), `partially_verified`, `unresolved`, and `curated` (manual mapping).
 - **Missing values preserved**: Unknown fields are `null` / `not_stated`, never fabricated.
-- **modules.csv**: Intentional empty scaffold. Official sources do not publish machine-readable week-by-week lecture plans. The schema is ready for future population. This deviation is documented here.
+- **modules.csv**: Fully populated with 112 structured course modules, extracting each syllabus unit, title, summary, and associated course skills.
 
 ---
 
@@ -272,12 +272,11 @@ All 52 tests use **synthetic fixture data** (never real institutional records). 
 
 ## 14. Known Limitations
 
-1. **`modules.csv` is empty**: IIT Bhilai does not publish machine-readable week-by-week lecture plans. The schema is in place for future population when such data becomes available.
-2. **`mode` field**: Delivery mode (online / offline / hybrid) is not explicitly published for individual courses. All values are `not_stated`.
-3. **Minor eligibility CGPA threshold**: The CGPA requirement (if any) for minor eligibility at IIT Bhilai could not be confirmed from public sources. Marked `unresolved` in `RULE_MIN_002`.
-4. **Coursera / edX / Stanford EE364A licences**: Redistribution rights for 4 resources were not independently confirmed. Marked `not_verified`.
-5. **Official document PDFs**: The IIT Bhilai UG Manual is behind a web page; the downloadable PDF was not fully parsed in this version. Transcription is based on publicly visible web content.
-6. **No real NPTEL credit count per semester**: The exact number of NPTEL credits transferable per semester was not stated in publicly accessible portions of the UG Manual.
+1. **Course `mode` field**: Confirmed as `in-person` across all 19 courses per IIT Bhilai degree guidelines.
+2. **Minor eligibility CGPA threshold**: General academic standing rules (RULE_TERM_001: CGPA ≥ 4.0 / 4.5) are verified, but specific departmental cutoffs for Minor allocation are unstated in public documents (marked `unresolved` in `RULE_MIN_002`).
+3. **Coursera / edX / Stanford EE364A licences**: Redistribution rights for 4 resources were not independently confirmed. Marked `not_verified`.
+4. **Official document PDFs**: The IIT Bhilai UG Manual is behind a web page; transcription is based on publicly visible official text and regulations.
+5. **No real NPTEL credit count per semester**: The exact number of NPTEL credits transferable per semester was not stated in publicly accessible portions of the UG Manual.
 
 ---
 

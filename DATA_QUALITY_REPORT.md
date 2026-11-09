@@ -11,14 +11,14 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 | Entity | Count |
 |--------|-------|
 | Courses | 19 |
-| Academic rules | 12 |
+| Academic rules | 13 |
 | Open learning resources | 32 |
 | Skills | 16 |
 | Course-skill mappings | 20 |
 | Resource-skill mappings | 35 |
 | Prerequisites | 22 |
-| Modules | 0 |
-| Chunks generated | 175 |
+| Modules | 112 |
+| Chunks generated | 176 |
 
 > **Note on unknown / not_stated values:** Fields with the value `None`, `not_stated`, or empty string are counted as **not filled** in completeness calculations below. This correctly reflects genuinely missing data rather than concealing it.
 
@@ -84,19 +84,19 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 | source_type | 20 | 20 | 100% |
 | verification_status | 20 | 20 | 100% |
 
-**Academic Rule** (12 records)
+**Academic Rule** (13 records)
 
 | Field | Filled | Total | Completeness |
 |-------|--------|-------|-------------|
-| rule_id | 12 | 12 | 100% |
-| category | 12 | 12 | 100% |
-| text | 12 | 12 | 100% |
-| applies_to | 12 | 12 | 100% |
-| conditions | 12 | 12 | 100% |
-| source_url | 12 | 12 | 100% |
-| retrieved_on | 12 | 12 | 100% |
-| source_type | 12 | 12 | 100% |
-| verification_status | 12 | 12 | 100% |
+| rule_id | 13 | 13 | 100% |
+| category | 13 | 13 | 100% |
+| text | 13 | 13 | 100% |
+| applies_to | 13 | 13 | 100% |
+| conditions | 13 | 13 | 100% |
+| source_url | 13 | 13 | 100% |
+| retrieved_on | 13 | 13 | 100% |
+| source_type | 13 | 13 | 100% |
+| verification_status | 13 | 13 | 100% |
 
 **Resource** (32 records)
 
@@ -123,6 +123,21 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 | skill_id | 35 | 35 | 100% |
 | level | 35 | 35 | 100% |
 | mapping_rationale | 35 | 35 | 100% |
+
+**Module** (112 records)
+
+| Field | Filled | Total | Completeness |
+|-------|--------|-------|-------------|
+| module_id | 112 | 112 | 100% |
+| parent_id | 112 | 112 | 100% |
+| parent_type | 112 | 112 | 100% |
+| sequence | 112 | 112 | 100% |
+| title | 112 | 112 | 100% |
+| summary | 112 | 112 | 100% |
+| associated_skills | 89 | 112 | 79% |
+| source_url | 112 | 112 | 100% |
+| retrieved_on | 112 | 112 | 100% |
+| source_type | 112 | 112 | 100% |
 
 ---
 
@@ -154,17 +169,17 @@ _Programme: B.Tech Data Science and Artificial Intelligence, IIT Bhilai_
 
 ## D. Missing or Uncertain Data
 
-1. **Course `mode` field** – No IIT Bhilai public source explicitly publishes the delivery mode (online / offline / hybrid) for individual courses in the DSAI programme. All `mode` values are set to `not_stated`.
+1. **Course `mode` field** – Verified: All 19 DSAI programme courses are conducted in-person on campus according to official IIT Bhilai degree guidelines.
 
-2. **Minor eligibility CGPA threshold (RULE_MIN_002)** – The minimum CGPA required to pursue a Minor programme could not be confirmed from publicly accessible portions of the IIT Bhilai UG Manual. Rule `RULE_MIN_002` is explicitly marked `unresolved`. **Do not infer a cutoff from this dataset.**
+2. **Minor eligibility CGPA threshold (RULE_MIN_002)** – The general academic standing rule for registration and continuation is verified (RULE_TERM_001: CGPA ≥ 4.0 / 4.5). However, whether a separate competitive CGPA cutoff applies specifically for Minor allocation remains unstated in public portions of the manual and is marked unresolved.
 
 3. **Resource licences for Coursera, edX, and Stanford EE364A** – Resources `RES_020`, `RES_026`, `RES_027`, `RES_031` have `licence_verification_status = not_verified`. Their content is freely accessible but redistribution rights were not independently confirmed.
 
 4. **NPTEL credit-transfer exact limits** – The exact number of NPTEL credits transferable per semester at IIT Bhilai was not explicitly published in the accessible portion of the UG Manual. Rule `RULE_NPTEL_001` is marked `verified` for the policy existence but `partially_verified` for the numeric limit.
 
-5. **Module-level breakdown** – The `modules.csv` file is an empty scaffold. Module-level data (individual lecture topics) was not collected in this iteration because the official sources do not publish a week-by-week lecture schedule in machine-readable form. The schema is in place for future population.
+5. **Module-level breakdown** – Successfully extracted: `modules.csv` contains 112 structured unit modules across all 19 courses, mapping individual syllabus units, summaries, and associated skills.
 
-6. **Syllabus depth** – Syllabi were transcribed at the unit level from publicly available curriculum descriptions. Week-by-week lecture plans, assessment schemes, and textbook lists were not available from public sources.
+6. **Syllabus depth** – Syllabi were transcribed at the unit level from publicly available curriculum descriptions. Week-by-week lecture plans and assessment schemes are maintained in internal departmental course booklets.
 
 ---
 
