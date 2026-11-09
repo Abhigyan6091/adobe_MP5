@@ -70,7 +70,12 @@ def _make_chunk_id(parent_id: str, sequence: int) -> str:
 # Chunk creators per entity type
 # ---------------------------------------------------------------------------
 
-def _chunk_course(course, max_words: int, overlap: int) -> list[dict[str, Any]]:
+def _chunk_course(
+    course,
+    max_words: int,
+    overlap: int,
+    skills: list[str] | None = None,
+) -> list[dict[str, Any]]:
     """
     Create chunks for a single course.
     - One chunk per syllabus section (split by 'Unit').
@@ -86,6 +91,7 @@ def _chunk_course(course, max_words: int, overlap: int) -> list[dict[str, Any]]:
         "course_code": course.code,
         "semester": course.semester,
         "course_type": course.course_type,
+        "skills": skills or [],
     }
 
     def emit(text: str, section: str, extra_filter: dict | None = None) -> None:
@@ -167,7 +173,12 @@ def _chunk_rule(rule, max_words: int, overlap: int) -> list[dict[str, Any]]:
     return chunks
 
 
-def _chunk_resource(resource, max_words: int, overlap: int) -> list[dict[str, Any]]:
+def _chunk_resource(
+    resource,
+    max_words: int,
+    overlap: int,
+    skills: list[str] | None = None,
+) -> list[dict[str, Any]]:
     """Resource descriptions produce one (or more) chunks."""
     parent_id = resource.resource_id
     text = resource.description or ""
@@ -180,6 +191,7 @@ def _chunk_resource(resource, max_words: int, overlap: int) -> list[dict[str, An
         "format": resource.format or "unknown",
         "licence": resource.licence or "unknown",
         "licence_verification_status": resource.licence_verification_status,
+        "skills": skills or [],
     }
 
     chunks: list[dict[str, Any]] = []
@@ -225,16 +237,37 @@ def run_chunk(
     """
     logger.info("=== Stage 4: Chunk (max_words=%d, overlap=%d) ===", max_words, overlap)
 
+    # Build skill lookup: skill_id -> skill_name
+    skill_names: dict[str, str] = {
+        s.skill_id: s.name for s in getattr(normalise_result, "skills", [])
+    }
+
+    course_skills: dict[str, list[str]] = {}
+    for link in getattr(normalise_result, "course_skill_links", []):
+        s_name = skill_names.get(link.skill_id, link.skill_id)
+        if s_name not in course_skills.setdefault(link.course_code, []):
+            course_skills[link.course_code].append(s_name)
+
+    resource_skills: dict[str, list[str]] = {}
+    for link in getattr(normalise_result, "resource_skill_links", []):
+        s_name = skill_names.get(link.skill_id, link.skill_id)
+        if s_name not in resource_skills.setdefault(link.resource_id, []):
+            resource_skills[link.resource_id].append(s_name)
+
     all_chunks: list[dict[str, Any]] = []
 
     for course in normalise_result.courses:
-        all_chunks.extend(_chunk_course(course, max_words, overlap))
+        all_chunks.extend(
+            _chunk_course(course, max_words, overlap, skills=course_skills.get(course.code, []))
+        )
 
     for rule in normalise_result.rules:
         all_chunks.extend(_chunk_rule(rule, max_words, overlap))
 
     for resource in normalise_result.resources:
-        all_chunks.extend(_chunk_resource(resource, max_words, overlap))
+        all_chunks.extend(
+            _chunk_resource(resource, max_words, overlap, skills=resource_skills.get(resource.resource_id, []))
+        )
 
     logger.info(
         "Chunk complete: %d total chunks "

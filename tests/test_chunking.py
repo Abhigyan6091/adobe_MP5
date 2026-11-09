@@ -130,6 +130,10 @@ class TestChunkIntegration:
                 f"Course chunk {chunk['chunk_id']} missing 'programme' in filter_metadata."
             )
             assert chunk["filter_metadata"]["programme"] == "B.Tech DSAI"
+            assert "skills" in chunk["filter_metadata"], (
+                f"Course chunk {chunk['chunk_id']} missing 'skills' in filter_metadata."
+            )
+            assert isinstance(chunk["filter_metadata"]["skills"], list)
 
     def test_rule_chunks_present(self):
         rule_chunks = [c for c in self.chunks if c["parent_type"] == "rule"]
